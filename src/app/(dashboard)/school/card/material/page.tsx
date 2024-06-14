@@ -4,6 +4,7 @@ import { ChevronLeft, PictureInPicture, X as XIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid' // Importa a biblioteca para gerar IDs únicos
 import { z } from 'zod'
 
 import { Pagination } from '@/components/TableOrders/pagination'
@@ -28,7 +29,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 
 const registerMaterialForm = z.object({
-  id: z.string(), // adicione um campo id único
+  id: z.string(), // Campo ID único
   quantity: z.number(),
   category: z.enum(['book', 'pen']),
   subcategory: z.enum(['subjects', 'blue']),
@@ -51,7 +52,8 @@ export default function MaterialSchool() {
 
   async function handleRegisterMaterial(data: RegisterMaterialForm) {
     await new Promise((resolve) => setTimeout(resolve, 1000))
-    setItems((prevItems) => [...prevItems, data])
+    const newItem = { ...data, id: uuidv4() } // Adiciona um ID único ao item
+    setItems((prevItems) => [...prevItems, newItem])
     setFirstItemAdded(true)
   }
 
@@ -223,10 +225,10 @@ export default function MaterialSchool() {
           </div>
         )}
 
-        {items.map((item, index) => (
+        {items.map((item) => (
           <div
             className="border-l-1 flex items-center justify-between rounded-lg border border-sky-100 bg-sky-100 p-4"
-            key={index}
+            key={item.id} // Use o ID único como chave
           >
             <div className="flex gap-2">
               <PictureInPicture />
