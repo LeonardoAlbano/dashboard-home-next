@@ -1,76 +1,144 @@
 'use client'
 
-import { Search, User2Icon } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
-import { OrdersCard } from '@/components/dashboard-cards/cards/orders-card'
-import { OrdersForDelivery } from '@/components/dashboard-cards/cards/orders-for-delivery'
-import { SchoolListCard } from '@/components/dashboard-cards/cards/school-list-card'
-import { StockCard } from '@/components/dashboard-cards/cards/stock-card'
-import { TotalMinimumStock } from '@/components/dashboard-cards/cards/total-minimum-stock'
-import { TotalNewClients } from '@/components/dashboard-cards/cards/total-new-clients'
-import { TotalProducts } from '@/components/dashboard-cards/cards/total-products'
-import { OrdersTable } from '@/components/TableOrders/orders-table'
-import { OrderTableFilters } from '@/components/TableOrders/orders-table-filter'
-import { Pagination } from '@/components/TableOrders/pagination'
+import LogoMobileTrajeton from '@/assets/logo-mobile-trajeton'
+import LogoTrajeton from '@/assets/logo-trajeton'
+import { RecoverPassword } from '@/components/recover-password'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
-export default function Home() {
+const passwordErrorMessage =
+  'Senha inválida. Verifique se a senha tem pelo menos 8 caracteres, com letras maiúsculas, minúsculas, números e caracteres especiais, e tente novamente.'
+
+const signInFormSchema = z.object({
+  email: z.string().email({
+    message:
+      'E-mail inválido. Insira um endereço de e-mail no formato correto.',
+  }),
+  password: z
+    .string()
+    .min(8, passwordErrorMessage)
+    .max(32, passwordErrorMessage)
+    .regex(/[A-Z]/, passwordErrorMessage)
+    .regex(/[a-z]/, passwordErrorMessage)
+    .regex(/[0-9]/, passwordErrorMessage)
+    .regex(/[^a-zA-Z0-9]/, passwordErrorMessage),
+})
+
+type SignInForm = z.infer<typeof signInFormSchema>
+
+export default function Auth() {
+  const [showPassword, setShowPassword] = useState(false)
+  const router = useRouter()
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignInForm>({
+    resolver: zodResolver(signInFormSchema),
+  })
+
+  async function handleSignIn(data: SignInForm) {
+    console.log(data)
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
+    router.push('/home')
+  }
+
   return (
-    <main className="bg-sky-50 pb-12 pt-20 lg:col-start-2 lg:ml-20 lg:pt-0">
-      <div className="grid grid-cols-[1fr_200px] gap-3 bg-blue-900 p-6 shadow-md md:flex-row">
-        <div className="flex w-full items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-4 py-2 shadow-sm">
-          <Input
-            className="h-5 w-5 flex-1 border-0 bg-transparent p-0 text-zinc-900 placeholder-black"
-            placeholder="Pesquise aqui"
-          />
-          <Search className="h-5 w-5 text-blue-400" />
-        </div>
-        <div className="flex items-center gap-3 whitespace-nowrap px-6">
-          <User2Icon className="text-white" size={34} />
-
-          <span className="text-center text-lg font-medium text-white">
-            Usuário ADM
-          </span>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4 p-4 lg:p-7">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-3">
-          <OrdersCard />
-          <StockCard />
-          <SchoolListCard />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4 p-4 lg:p-7">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
-          <OrdersForDelivery />
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
-              <TotalProducts />
-              <TotalMinimumStock />
-            </div>
-            <TotalNewClients />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4 p-4 lg:px-7">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">
-            Lista de pedidos
-          </h1>
-        </div>
-
+    <section className="grid-rows-app grid min-h-screen md:grid-cols-2 md:grid-rows-1 md:pt-0">
+      <div className="order-2 flex flex-col items-center justify-start md:order-1 md:flex-row md:justify-center">
         <div>
-          <OrderTableFilters />
-          <div className="border-b-4 border-zinc-400 bg-white">
-            <OrdersTable />
-          </div>
+          <form
+            id="SignIn"
+            onSubmit={handleSubmit(handleSignIn)}
+            className="relative w-[450px] space-y-4 px-8 pb-9"
+          >
+            <div className="space-y-2">
+              <Label htmlFor="email">
+                Email<span className="text-red-500">*</span>
+              </Label>
+              <Input id="email" type="email" {...register('email')} />
+              {errors.email && (
+                <span className="flex text-sm text-red-500">
+                  {errors.email.message}
+                </span>
+              )}
+            </div>
 
-          <Pagination pageIndex={0} totalCount={105} perPage={10} />
+            <div className="relative space-y-2">
+              <Label htmlFor="password">
+                Senha<span className="text-red-500">*</span>
+              </Label>
+              <div className="relative">
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  {...register('password')}
+                />
+                <div
+                  className="absolute inset-y-0 right-0 top-1/2 flex -translate-y-1/2 transform cursor-pointer items-center pr-3 text-sm leading-5"
+                  onClick={togglePasswordVisibility}
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? (
+                    <EyeOffIcon size={20} className="text-blue-300" />
+                  ) : (
+                    <EyeIcon size={20} className="text-blue-300" />
+                  )}
+                </div>
+              </div>
+              {errors.password && (
+                <span className="flex text-sm text-red-500">
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <button className="border-none bg-none pt-4 text-xs text-blue-500">
+                  Esqueci minha senha
+                </button>
+              </DialogTrigger>
+
+              <RecoverPassword />
+            </Dialog>
+
+            <Button
+              disabled={isSubmitting}
+              type="submit"
+              className="w-full rounded-xl"
+              form="SignIn"
+            >
+              Enviar
+            </Button>
+          </form>
+          <div className="space-y-3 px-8"></div>
         </div>
       </div>
-    </main>
+
+      <div className="order-1 -mb-16 flex items-center justify-center md:order-2 md:mb-0 md:bg-muted md:pb-8">
+        <div className="hidden md:block">
+          <LogoTrajeton />
+        </div>
+        <div className="block md:hidden">
+          <LogoMobileTrajeton />
+        </div>
+      </div>
+    </section>
   )
 }

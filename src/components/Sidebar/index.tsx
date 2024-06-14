@@ -1,6 +1,8 @@
+'use client'
+
 import { Menu } from 'lucide-react'
 
-import { LogoTrajeton } from '@/assets/logo-trajeton'
+import { LogoTrajetonSidebar } from '@/assets/logo-trajeton-sidebar'
 
 import { Button } from '../ui/button'
 import {
@@ -10,11 +12,11 @@ import {
 } from '../ui/collapsible'
 import { MainNavigation } from './MainNavigation'
 
-export function Sidebar() {
+export default function Sidebar() {
   return (
-    <Collapsible className="fixed left-0 right-0 top-0 z-20 flex flex-col gap-6 border-b border-zinc-200 bg-white p-4 data-[state=open]:bottom-0 lg:right-auto lg:items-center lg:border-r lg:data-[state=closed]:bottom-0">
+    <Collapsible className="fixed left-0 right-0 top-0 z-20 flex flex-col gap-6 border-b border-zinc-200 bg-white p-3 data-[state=open]:bottom-0 lg:right-auto lg:items-center lg:border-r lg:data-[state=closed]:bottom-0">
       <div className="flex items-center justify-between">
-        <LogoTrajeton />
+        <LogoTrajetonSidebar />
         <CollapsibleTrigger asChild className="lg:hidden">
           <Button variant="ghost">
             <Menu className="h-6 w-6" />
