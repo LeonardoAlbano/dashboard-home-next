@@ -2,7 +2,7 @@
 
 import { Box } from 'lucide-react'
 
-import { Card, CardHeader, CardTitle } from '../../ui/card'
+import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 
 export function StockCard() {
   return (

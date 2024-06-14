@@ -26,13 +26,17 @@ import { Separator } from './ui/separator'
 const registerSchoolForm = z.object({
   SchoolName: z.string(),
   photo: z.string(),
-  city: z.enum(['processing', 'delivery']),
-  state: z.enum(['processing', 'delivery']),
+  city: z.enum(['Salvador', 'São Paulo', 'Rio de Janeiro']),
+  state: z.enum(['BA', 'SP', 'RJ']),
 })
 
 type RegisterSchoolForm = z.infer<typeof registerSchoolForm>
 
-export function RegisterSchool() {
+interface RegisterSchoolProps {
+  onAddSchool: (school: RegisterSchoolForm) => void
+}
+
+export function RegisterSchool({ onAddSchool }: RegisterSchoolProps) {
   const {
     register,
     handleSubmit,
@@ -40,9 +44,12 @@ export function RegisterSchool() {
     formState: { isSubmitting },
   } = useForm<RegisterSchoolForm>()
 
-  async function handleRegisterPassword(data: RegisterSchoolForm) {
+  async function handleRegisterSchool(data: RegisterSchoolForm) {
     console.log(data)
     await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    // Chame a função de callback passada como prop
+    onAddSchool(data)
   }
 
   return (
@@ -56,7 +63,7 @@ export function RegisterSchool() {
       <form
         action=""
         className="flex w-full flex-col gap-8"
-        onSubmit={handleSubmit(handleRegisterPassword)}
+        onSubmit={handleSubmit(handleRegisterSchool)}
       >
         <div className="text-lg">
           <Label htmlFor="SchoolName" className="ml-0.5">
@@ -75,7 +82,7 @@ export function RegisterSchool() {
             Foto (máximo 5MB)<span className="text-red-500">*</span>
             <div className="flex h-36 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dotted border-orange-500 bg-orange-200">
               <Image className="text-orange-600" size={22} />
-              <span className="text-orange-600">Clique para adiconar</span>
+              <span className="text-orange-600">Clique para adicionar</span>
             </div>
             <Input
               type="file"
@@ -97,8 +104,8 @@ export function RegisterSchool() {
               control={control}
               render={({ field: { name, onChange, value, disabled } }) => (
                 <>
-                  <label htmlFor="state" className="text-sm font-semibold">
-                    Estado <span className="text-red-500">*</span>
+                  <label htmlFor="city" className="text-sm font-semibold">
+                    Cidade <span className="text-red-500">*</span>
                   </label>
                   <Select
                     name={name}
@@ -112,10 +119,11 @@ export function RegisterSchool() {
 
                     <SelectContent>
                       <div className="">
-                        <SelectItem value="processing">
-                          Em preparação
+                        <SelectItem value="Salvador">Salvador</SelectItem>
+                        <SelectItem value="São Paulo">São Paulo</SelectItem>
+                        <SelectItem value="Rio de Janeiro">
+                          Rio de Janeiro
                         </SelectItem>
-                        <SelectItem value="delivery">Entregue</SelectItem>
                       </div>
                     </SelectContent>
                   </Select>
@@ -145,10 +153,9 @@ export function RegisterSchool() {
 
                     <SelectContent>
                       <div className="">
-                        <SelectItem value="processing">
-                          Em preparação
-                        </SelectItem>
-                        <SelectItem value="delivery">Entregue</SelectItem>
+                        <SelectItem value="BA">Bahia</SelectItem>
+                        <SelectItem value="SP">São Paulo</SelectItem>
+                        <SelectItem value="RJ">Rio de Janeiro</SelectItem>
                       </div>
                     </SelectContent>
                   </Select>

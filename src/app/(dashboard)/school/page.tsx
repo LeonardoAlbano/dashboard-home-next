@@ -1,3 +1,6 @@
+'use client'
+import React, { useState } from 'react'
+
 import { RegisterSchool } from '@/components/register-school'
 import { RegisterSchoolCard } from '@/components/school-cards/register-school-card'
 import { Pagination } from '@/components/TableOrders/pagination'
@@ -5,7 +8,20 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
 
+interface School {
+  SchoolName: string
+  photo: string
+  city: string
+  state: string
+}
+
 export default function SchoolDashboard() {
+  const [schools, setSchools] = useState<School[]>([])
+
+  const addSchool = (newSchool: School) => {
+    setSchools((prevSchools) => [...prevSchools, newSchool])
+  }
+
   return (
     <main className="min-h-screen space-y-8 bg-sky-100 px-5 pt-10 lg:p-7">
       <section className="flex items-center justify-between">
@@ -16,7 +32,7 @@ export default function SchoolDashboard() {
             <Button>+ Cadastrar escola</Button>
           </DialogTrigger>
 
-          <RegisterSchool />
+          <RegisterSchool onAddSchool={addSchool} />
         </Dialog>
       </section>
 
@@ -24,9 +40,9 @@ export default function SchoolDashboard() {
 
       <section>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 12 }).map((_, i) => {
-            return <RegisterSchoolCard key={i} />
-          })}
+          {schools.map((school, i) => (
+            <RegisterSchoolCard key={i} school={school} />
+          ))}
         </div>
       </section>
 
