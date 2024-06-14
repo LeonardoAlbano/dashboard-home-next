@@ -23,32 +23,29 @@ export default function SchoolDashboard() {
   }
 
   return (
-    <main className="min-h-screen space-y-8 bg-sky-100 px-5 pt-10 lg:p-7">
-      <section className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-slate-800">Escolas</h1>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>+ Cadastrar escola</Button>
-          </DialogTrigger>
-
-          <RegisterSchool onAddSchool={addSchool} />
-        </Dialog>
-      </section>
-
-      <Separator orientation="horizontal" className="text-slate-900" />
-
-      <section>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {schools.map((school, i) => (
-            <RegisterSchoolCard key={i} school={school} />
-          ))}
-        </div>
-      </section>
-
-      <section className="">
+    <div className="flex min-h-screen flex-col">
+      <main className="flex-grow space-y-8 bg-sky-100 px-5 pt-10 lg:p-7">
+        <section className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-slate-800">Escolas</h1>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>+ Cadastrar escola</Button>
+            </DialogTrigger>
+            <RegisterSchool onAddSchool={addSchool} />
+          </Dialog>
+        </section>
+        <Separator orientation="horizontal" className="text-slate-900" />
+        <section>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {schools.map((school, i) => (
+              <RegisterSchoolCard key={i} school={school} />
+            ))}
+          </div>
+        </section>
+      </main>
+      <footer className="px-5 py-5">
         <Pagination pageIndex={0} totalCount={105} perPage={10} />
-      </section>
-    </main>
+      </footer>
+    </div>
   )
 }

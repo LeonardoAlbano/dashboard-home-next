@@ -38,7 +38,7 @@ export default function CardTeste() {
   }
 
   return (
-    <main className="min-h-screen space-y-6 bg-blue-50 px-5 pt-10 lg:p-7">
+    <main className="min-h-screen space-y-6 bg-sky-100 px-5 pt-10 lg:p-7">
       <section className="flex items-center justify-between">
         <Link href="/school">
           <ChevronLeft size={40} className="text-slate-800" />

@@ -12,9 +12,9 @@ export default function ActionUpdateSchoolCard() {
         <DialogTitle>Editar escola</DialogTitle>
       </DialogHeader>
 
-      <form action="">
-        <div>
-          <Label htmlFor="newNameSchool" className="ml-0.5 space-y-1">
+      <form action="" className="space-y-5">
+        <div className="space-y-1">
+          <Label htmlFor="newNameSchool" className="ml-0.5">
             Nome da escola<span className="text-red-500">*</span>
           </Label>
           <Input
@@ -39,7 +39,7 @@ export default function ActionUpdateSchoolCard() {
           </span>
         </div>
 
-        <div className="ml-auto flex gap-3">
+        <div className="ml-auto flex justify-end gap-3">
           <Button
             type="button"
             variant="ghost"
