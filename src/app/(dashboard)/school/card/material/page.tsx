@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircleIcon, ChevronLeft, PictureInPicture, X } from 'lucide-react'
+import { ChevronLeft, PictureInPicture, X } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -31,8 +31,8 @@ import { Separator } from '@/components/ui/separator'
 const registerMaterialForm = z.object({
   id: z.string(),
   quantity: z.number(),
-  category: z.enum(['book', 'pen']),
-  subcategory: z.enum(['subjects', 'blue']),
+  category: z.enum(['caderno', 'caneta']),
+  subcategory: z.enum(['10 materias', 'azul']),
 })
 
 type RegisterMaterialForm = z.infer<typeof registerMaterialForm>
@@ -135,8 +135,8 @@ export default function MaterialSchool() {
 
                             <SelectContent>
                               <div className="">
-                                <SelectItem value="book">Caderno</SelectItem>
-                                <SelectItem value="pen">Caneta</SelectItem>
+                                <SelectItem value="caderno">Caderno</SelectItem>
+                                <SelectItem value="caneta">Caneta</SelectItem>
                               </div>
                             </SelectContent>
                           </Select>
@@ -171,10 +171,10 @@ export default function MaterialSchool() {
 
                             <SelectContent>
                               <div className="">
-                                <SelectItem value="subjects">
+                                <SelectItem value="10 materias">
                                   10 matérias
                                 </SelectItem>
-                                <SelectItem value="blue">Azul</SelectItem>
+                                <SelectItem value="azul">Azul</SelectItem>
                               </div>
                             </SelectContent>
                           </Select>
@@ -234,7 +234,7 @@ export default function MaterialSchool() {
               <div className="flex gap-2">
                 <PictureInPicture />
                 <p className="text-slate-800">
-                  {`Caderno ${item.subcategory} | Livros e cadernos - Universitários`}
+                  {`${item.category} ${item.subcategory} | Livros e cadernos - Universitários`}
                 </p>
               </div>
               <Dialog>
@@ -263,30 +263,14 @@ export default function MaterialSchool() {
                     </DialogDescription>
 
                     <div className="grid-row mt-4 grid gap-3">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            type="button"
-                            onClick={confirmRemoveItem}
-                            disabled={isSubmitting}
-                            className="h-8 rounded-xl"
-                          >
-                            Sim, remover
-                          </Button>
-                        </DialogTrigger>
-
-                        <DialogContent className="h-60 max-w-80 rounded-xl">
-                          <div className="mt-5 flex items-center justify-center">
-                            <CheckCircleIcon
-                              size={45}
-                              className="text-orange-500"
-                            />
-                          </div>
-                          <p className="text-center text-orange-500">
-                            Item removido com sucesso!
-                          </p>
-                        </DialogContent>
-                      </Dialog>
+                      <Button
+                        type="button"
+                        onClick={confirmRemoveItem}
+                        disabled={isSubmitting}
+                        className="h-8 rounded-xl"
+                      >
+                        Sim, remover
+                      </Button>
 
                       <Button
                         type="button"

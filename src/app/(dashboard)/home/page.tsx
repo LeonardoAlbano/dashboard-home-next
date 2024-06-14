@@ -15,7 +15,7 @@ import { Separator } from '@/components/ui/separator'
 
 export default function HomeDashboard() {
   return (
-    <main className="p-4 lg:p-7">
+    <main className="px-8 py-4 lg:p-7">
       <section className="flex flex-col gap-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-3">
           <OrdersCard />
