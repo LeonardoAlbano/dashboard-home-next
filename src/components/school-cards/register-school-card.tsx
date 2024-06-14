@@ -1,11 +1,11 @@
 import { EllipsisVertical } from 'lucide-react'
-import Link from 'next/link' // Importe o Link do Next.js
+import Link from 'next/link'
 
 import { Card, CardContent, CardHeader } from '../ui/card'
 
 export function RegisterSchoolCard() {
   return (
-    <Link href="/school/card">
+    <Link href="school/card">
       <Card className="max-w-[740px] rounded-xl border-none bg-blue-100 shadow-sm md:max-w-[550px]">
         <CardHeader className="flex flex-row items-center justify-between pb-20">
           <span>Imagem escola</span>

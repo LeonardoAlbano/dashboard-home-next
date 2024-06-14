@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator'
 
 export default function SchoolDashboard() {
   return (
-    <main className="min-h-screen space-y-8 bg-sky-50 px-5 pt-10 lg:p-7">
+    <main className="min-h-screen space-y-8 bg-sky-100 px-5 pt-10 lg:p-7">
       <section className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-slate-800">Escolas</h1>
 
@@ -20,7 +20,7 @@ export default function SchoolDashboard() {
         </Dialog>
       </section>
 
-      <Separator className="text-slate-900" />
+      <Separator orientation="horizontal" className="text-slate-900" />
 
       <section>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

@@ -2,7 +2,7 @@
 
 import { ChevronLeft, EllipsisVertical, Trash2Icon } from 'lucide-react'
 import Link from 'next/link'
-import { FormEvent, useState } from 'react' // Importe o useState
+import { FormEvent, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -19,6 +19,7 @@ import { Separator } from '@/components/ui/separator'
 
 export default function CardTeste() {
   const [series, setSeries] = useState<string[]>([])
+  const [hasSeries, setHasSeries] = useState(false)
 
   const handleAddSeries = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -31,15 +32,16 @@ export default function CardTeste() {
 
     if (newSeries) {
       setSeries([...series, newSeries])
+      setHasSeries(true)
       target.name.value = ''
     }
   }
 
   return (
-    <main className="min-h-screen space-y-6 bg-sky-50 px-5 pt-10 lg:p-7">
+    <main className="min-h-screen space-y-6 bg-blue-50 px-5 pt-10 lg:p-7">
       <section className="flex items-center justify-between">
         <Link href="/school">
-          <ChevronLeft size={40} className="text=slate-800" />
+          <ChevronLeft size={40} className="text-slate-800" />
         </Link>
       </section>
 
@@ -65,7 +67,7 @@ export default function CardTeste() {
       </section>
 
       <section className="flex flex-row justify-between">
-        <h1 className="text-3xl font-semibold text-slate-900">Séries</h1>
+        <h1 className="text-3xl font-bold text-slate-900">Séries</h1>
 
         <Dialog>
           <DialogTrigger asChild>
@@ -111,6 +113,14 @@ export default function CardTeste() {
       </section>
 
       <section className="space-y-5">
+        {!hasSeries && (
+          <div className="border-none bg-transparent">
+            <p className="font-semibold text-slate-800">
+              Você não possui séries cadastradas.
+            </p>
+          </div>
+        )}
+
         {series.map((serie, index) => (
           <Link
             href={`/school/card/material`}
