@@ -1,33 +1,55 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu'
+
+import ActionDeleteSchoolCard from './action-delete-school-card'
 import ActionUpdateSchoolCard from './action-update-school-card'
 import { Button } from './ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './ui/dialog'
+import { Dialog, DialogTrigger } from './ui/dialog'
 
 export default function ActionSchoolCard() {
   return (
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Ação</DialogTitle>
-      </DialogHeader>
+    <DropdownMenuContent>
+      <DropdownMenuLabel>Ação</DropdownMenuLabel>
+      <DropdownMenuSeparator />
 
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Editar</Button>
-        </DialogTrigger>
+      <DropdownMenuGroup>
+        <Dialog>
+          <DialogTrigger
+            asChild
+            className="px-2 py-4 hover:bg-orange-100 hover:text-orange-600"
+          >
+            <Button
+              variant="ghost"
+              className="flex h-5 w-full justify-start text-slate-800"
+            >
+              Editar
+            </Button>
+          </DialogTrigger>
+          <ActionUpdateSchoolCard />
+        </Dialog>
+      </DropdownMenuGroup>
 
-        <ActionUpdateSchoolCard />
-      </Dialog>
-
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Excluir</Button>
-        </DialogTrigger>
-      </Dialog>
-    </DialogContent>
+      <DropdownMenu>
+        <Dialog>
+          <DialogTrigger
+            asChild
+            className="mt-1 px-2 py-4 hover:bg-orange-100 hover:text-orange-600"
+          >
+            <Button
+              variant="ghost"
+              className="flex h-5 w-full justify-start text-slate-800"
+            >
+              Excluir
+            </Button>
+          </DialogTrigger>
+          <ActionDeleteSchoolCard />
+        </Dialog>
+      </DropdownMenu>
+    </DropdownMenuContent>
   )
 }

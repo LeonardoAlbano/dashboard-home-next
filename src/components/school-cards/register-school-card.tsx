@@ -6,7 +6,7 @@ import Link from 'next/link'
 import ActionSchoolCard from '../action-school-card'
 import { Button } from '../ui/button'
 import { Card, CardContent, CardHeader } from '../ui/card'
-import { Dialog, DialogTrigger } from '../ui/dialog'
+import { DropdownMenu, DropdownMenuTrigger } from '../ui/dropdown-menu'
 
 interface School {
   SchoolName: string
@@ -24,15 +24,18 @@ export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
     <Card className="max-w-[740px] rounded-xl border-none bg-blue-100 shadow-sm md:max-w-[550px]">
       <CardHeader className="flex flex-row items-center justify-between pb-20">
         <span>Imagem escola</span>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="ghost" className='hover:bg-orange-100 group '>
-              <EllipsisVertical size={20} className="text-slate-800 group-hover:text-orange-500 " />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="group hover:bg-orange-100">
+              <EllipsisVertical
+                size={20}
+                className="text-slate-800 group-hover:text-orange-500"
+              />
             </Button>
-          </DialogTrigger>
+          </DropdownMenuTrigger>
 
           <ActionSchoolCard />
-        </Dialog>
+        </DropdownMenu>
       </CardHeader>
       <Link href="school/card">
         <CardContent className="flex flex-col gap-1">
