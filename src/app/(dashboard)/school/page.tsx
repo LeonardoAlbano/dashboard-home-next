@@ -37,7 +37,7 @@ const SchoolDashboard: React.FC = () => {
         <Separator orientation="horizontal" className="text-slate-900" />
         <section>
           {schools.length === 0 ? (
-            <p className="text-slate-600">
+            <p className="font-semibold text-slate-900">
               Você não possui escolas cadastradas, basta clicar no botão no
               canto superior direito.
             </p>

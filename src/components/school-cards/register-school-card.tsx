@@ -21,23 +21,12 @@ interface RegisterSchoolCardProps {
 
 export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
   return (
-    <Card className="max-w-[740px] rounded-xl border-none bg-blue-100 shadow-sm md:max-w-[550px]">
-      <CardHeader className="flex flex-row items-center justify-between pb-20">
-        <span>Imagem escola</span>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="group hover:bg-orange-100">
-              <EllipsisVertical
-                size={20}
-                className="text-slate-800 group-hover:text-orange-500"
-              />
-            </Button>
-          </DropdownMenuTrigger>
+    <Card className="flex max-w-[740px] justify-between rounded-xl border-none bg-blue-100 shadow-sm md:max-w-[550px]">
+      <Link href="school/card" className="w-full ">
+        <CardHeader className="flex flex-row items-center justify-between pb-20">
+          <span>Imagem escola</span>
+        </CardHeader>
 
-          <ActionSchoolCard />
-        </DropdownMenu>
-      </CardHeader>
-      <Link href="school/card">
         <CardContent className="flex flex-col gap-1">
           <h1 className="text-xl font-semibold text-slate-800">
             {school.SchoolName}
@@ -45,6 +34,19 @@ export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
           <span className="text-md text-slate-900">{`${school.city} - ${school.state}`}</span>
         </CardContent>
       </Link>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="group hover:bg-orange-100">
+            <EllipsisVertical
+              size={20}
+              className="text-slate-800 group-hover:text-orange-500"
+            />
+          </Button>
+        </DropdownMenuTrigger>
+
+        <ActionSchoolCard />
+      </DropdownMenu>
     </Card>
   )
 }
