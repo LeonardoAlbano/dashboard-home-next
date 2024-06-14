@@ -15,7 +15,7 @@ interface School {
   state: string
 }
 
-export default function SchoolDashboard() {
+const SchoolDashboard: React.FC = () => {
   const [schools, setSchools] = useState<School[]>([])
 
   const addSchool = (newSchool: School) => {
@@ -36,11 +36,18 @@ export default function SchoolDashboard() {
         </section>
         <Separator orientation="horizontal" className="text-slate-900" />
         <section>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {schools.map((school, i) => (
-              <RegisterSchoolCard key={i} school={school} />
-            ))}
-          </div>
+          {schools.length === 0 ? (
+            <p className="text-slate-600">
+              Você não possui escolas cadastradas, basta clicar no botão no
+              canto superior direito.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {schools.map((school, i) => (
+                <RegisterSchoolCard key={i} school={school} />
+              ))}
+            </div>
+          )}
         </section>
       </main>
       <footer className="px-5 py-5">
@@ -49,3 +56,5 @@ export default function SchoolDashboard() {
     </div>
   )
 }
+
+export default SchoolDashboard
