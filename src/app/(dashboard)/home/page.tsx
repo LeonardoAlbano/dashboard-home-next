@@ -9,7 +9,9 @@ import { TotalNewClients } from '@/components/dashboard-cards/total-new-clients'
 import { TotalProducts } from '@/components/dashboard-cards/total-products'
 import { OrdersTable } from '@/components/TableOrders/orders-table'
 import { OrderTableFilters } from '@/components/TableOrders/orders-table-filter'
+import OrdersTableMobile from '@/components/TableOrders/orders-table-mobile'
 import { Pagination } from '@/components/TableOrders/pagination'
+import { Separator } from '@/components/ui/separator'
 
 export default function HomeDashboard() {
   return (
@@ -43,12 +45,27 @@ export default function HomeDashboard() {
         </div>
 
         <div>
-          <OrderTableFilters />
-          <div className="border-b-4 border-slate-400 bg-white">
-            <OrdersTable />
+          <div className="hidden md:block">
+            <OrderTableFilters />
+            <div className="border-b-4 border-slate-400 bg-white">
+              <OrdersTable />
+            </div>
           </div>
 
-          <Pagination pageIndex={0} totalCount={105} perPage={10} />
+          <div className="space-y-5 md:hidden">
+            {Array.from({ length: 6 }).map((_, i) => {
+              return (
+                <div key={i}>
+                  <Separator className="border-1 mb-5 bg-slate-300" />
+                  <OrdersTableMobile />
+                </div>
+              )
+            })}
+          </div>
+
+          <div className="mt-5">
+            <Pagination pageIndex={0} totalCount={105} perPage={10} />
+          </div>
         </div>
       </section>
     </main>

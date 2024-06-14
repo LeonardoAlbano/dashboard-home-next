@@ -22,7 +22,7 @@ interface RegisterSchoolCardProps {
 export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
   return (
     <Card className="flex max-w-[740px] justify-between rounded-xl border-none bg-blue-100 shadow-sm md:max-w-[550px]">
-      <Link href="school/card" className="w-full ">
+      <Link href="school/card" className="w-full">
         <CardHeader className="flex flex-row items-center justify-between pb-20">
           <span>Imagem escola</span>
         </CardHeader>

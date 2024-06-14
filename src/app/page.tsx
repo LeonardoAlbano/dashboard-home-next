@@ -51,11 +51,19 @@ export default function Auth() {
     resolver: zodResolver(signInFormSchema),
   })
 
-  async function handleSignIn(data: SignInForm) {
+  const handleSignIn = async (data: SignInForm) => {
     console.log(data)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
 
-    router.push('/home')
+    const mockEmail = 'visitante@email.com'
+    const mockPassword = 'Mudar@2024'
+
+    if (data.email === mockEmail && data.password === mockPassword) {
+      await new Promise((resolve) => setTimeout(resolve, 500))
+
+      router.push('/home')
+    } else {
+      console.log('Credenciais inválidas')
+    }
   }
 
   return (
@@ -71,7 +79,12 @@ export default function Auth() {
               <Label htmlFor="email">
                 Email<span className="text-red-500">*</span>
               </Label>
-              <Input id="email" type="email" {...register('email')} />
+              <Input
+                id="email"
+                type="email"
+                {...register('email')}
+                placeholder="Digite seu e-mail"
+              />
               {errors.email && (
                 <span className="flex text-sm text-red-500">
                   {errors.email.message}
@@ -88,6 +101,7 @@ export default function Auth() {
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   {...register('password')}
+                  placeholder="Digite sua senha"
                 />
                 <div
                   className="absolute inset-y-0 right-0 top-1/2 flex -translate-y-1/2 transform cursor-pointer items-center pr-3 text-sm leading-5"
