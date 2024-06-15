@@ -34,7 +34,7 @@ export default function SchoolDashboard() {
             <RegisterSchool onAddSchool={addSchool} />
           </Dialog>
         </section>
-        <Separator orientation="horizontal" className="text-orange-900" />
+        <Separator orientation="horizontal" className="h-0.5 text-orange-900" />
         <section>
           {schools.length === 0 ? (
             <p className="font-semibold text-slate-800">

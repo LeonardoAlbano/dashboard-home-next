@@ -20,12 +20,12 @@ export default function ActionDeleteSchoolCard() {
           desfeita
         </DialogDescription>
 
-        <div className="grid-row mt-4 grid gap-3">
+        <div className="grid-row mt-4 grid gap-2">
           <Button type="button" className="h-8 rounded-xl">
             Sim, excluir
           </Button>
 
-          <DialogClose>
+          <DialogClose asChild>
             <Button
               type="reset"
               variant="ghost"
