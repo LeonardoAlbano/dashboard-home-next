@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -97,13 +98,15 @@ export default function MaterialDashboard() {
               </div>
 
               <div className="mt-6 flex justify-end gap-3">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
-                >
-                  Cancelar
-                </Button>
+                <DialogClose>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
+                  >
+                    Cancelar
+                  </Button>
+                </DialogClose>
 
                 <Button type="submit">Cadastrar</Button>
               </div>

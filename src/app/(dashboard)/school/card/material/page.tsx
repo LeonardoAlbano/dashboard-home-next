@@ -11,6 +11,7 @@ import { Pagination } from '@/components/TableOrders/pagination'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -39,8 +40,7 @@ type RegisterMaterialForm = z.infer<typeof registerMaterialForm>
 
 export default function MaterialSchool() {
   const [items, setItems] = useState<RegisterMaterialForm[]>([])
-  const [confirmDeleteItem, setConfirmDeleteItem] =
-    useState<RegisterMaterialForm | null>(null)
+  const [, setConfirmDeleteItem] = useState<RegisterMaterialForm | null>(null)
   const [firstItemAdded, setFirstItemAdded] = useState(false)
 
   const {
@@ -61,13 +61,9 @@ export default function MaterialSchool() {
     setConfirmDeleteItem(item)
   }
 
-  function confirmRemoveItem() {
-    if (confirmDeleteItem) {
-      setItems((prevItems) =>
-        prevItems.filter((i) => i.id !== confirmDeleteItem.id),
-      )
-      setConfirmDeleteItem(null)
-    }
+  function confirmRemoveItem(item: RegisterMaterialForm) {
+    setItems((prevItems) => prevItems.filter((i) => i.id !== item.id))
+    setConfirmDeleteItem(null)
   }
 
   return (
@@ -196,13 +192,15 @@ export default function MaterialSchool() {
                 </div>
 
                 <div className="mt-6 flex justify-end gap-3">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
-                  >
-                    Cancelar
-                  </Button>
+                  <DialogClose asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
+                    >
+                      Cancelar
+                    </Button>
+                  </DialogClose>
 
                   <Button type="submit" disabled={isSubmitting}>
                     Cadastrar
@@ -228,9 +226,7 @@ export default function MaterialSchool() {
             >
               <div className="flex gap-2">
                 <PictureInPicture />
-                <p className="text-slate-800">
-                  {`${item.category} ${item.subcategory}`}
-                </p>
+                <p className="text-slate-800">{`${item.category} ${item.subcategory}`}</p>
               </div>
               <Dialog>
                 <DialogTrigger asChild>
@@ -246,37 +242,36 @@ export default function MaterialSchool() {
                   </Button>
                 </DialogTrigger>
 
-                {confirmDeleteItem && confirmDeleteItem.id === item.id && (
-                  <DialogContent>
-                    <DialogHeader className="space-y-5">
-                      <DialogTitle className="text-md font-semibold text-slate-800">
-                        Remover item
-                      </DialogTitle>
-                      <DialogDescription className="text-normal text-slate-800">
-                        Você realmente deseja remover este item? Esta ação não
-                        pode ser desfeita.
-                      </DialogDescription>
-                      <div className="grid grid-cols-2 gap-3">
+                <DialogContent>
+                  <DialogHeader className="space-y-5">
+                    <DialogTitle className="text-md font-semibold text-slate-800">
+                      Remover item
+                    </DialogTitle>
+                    <DialogDescription className="text-normal text-slate-800">
+                      Você realmente deseja remover este item? Esta ação não
+                      pode ser desfeita.
+                    </DialogDescription>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button
+                        type="button"
+                        onClick={() => confirmRemoveItem(item)}
+                        disabled={isSubmitting}
+                        className="col-span-2 h-8 rounded-xl"
+                      >
+                        Sim, remover
+                      </Button>
+                      <DialogClose asChild>
                         <Button
                           type="button"
-                          onClick={confirmRemoveItem}
-                          disabled={isSubmitting}
-                          className="col-span-2 h-8 rounded-xl"
-                        >
-                          Sim, remover
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => setConfirmDeleteItem(null)}
                           variant="ghost"
                           className="col-span-2 h-8 rounded-xl font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
                         >
                           Não remover
                         </Button>
-                      </div>
-                    </DialogHeader>
-                  </DialogContent>
-                )}
+                      </DialogClose>
+                    </div>
+                  </DialogHeader>
+                </DialogContent>
               </Dialog>
             </div>
           ))}

@@ -30,7 +30,6 @@ export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
               src={school.photo}
               alt={school.SchoolName}
               className="rounded-2xl object-cover"
-              layout="fill"
             />
           </div>
         </CardHeader>

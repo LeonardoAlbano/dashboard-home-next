@@ -1,5 +1,6 @@
 import { Button } from './ui/button'
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -24,13 +25,15 @@ export default function ActionDeleteSchoolCard() {
             Sim, excluir
           </Button>
 
-          <Button
-            type="reset"
-            variant="ghost"
-            className="h-8 rounded-xl font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
-          >
-            Não excluir
-          </Button>
+          <DialogClose>
+            <Button
+              type="reset"
+              variant="ghost"
+              className="h-8 rounded-xl font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
+            >
+              Não excluir
+            </Button>
+          </DialogClose>
         </div>
       </DialogHeader>
     </DialogContent>

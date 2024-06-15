@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import {
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -23,8 +24,10 @@ import {
 } from './ui/select'
 import { Separator } from './ui/separator'
 
+const schoolNameErrorMenssage = 'Máximo de 255 caracteres'
+
 const registerSchoolForm = z.object({
-  SchoolName: z.string(),
+  SchoolName: z.string().min(1).max(255, schoolNameErrorMenssage),
   photo: z.string(),
   city: z.enum(['Salvador', 'São Paulo', 'Rio de Janeiro']),
   state: z.enum(['BA', 'SP', 'RJ']),
@@ -41,14 +44,12 @@ export function RegisterSchool({ onAddSchool }: RegisterSchoolProps) {
     register,
     handleSubmit,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<RegisterSchoolForm>()
 
   async function handleRegisterSchool(data: RegisterSchoolForm) {
     console.log(data)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-
-    // Chame a função de callback passada como prop
+    await new Promise((resolve) => setTimeout(resolve, 500))
     onAddSchool(data)
   }
 
@@ -75,6 +76,11 @@ export function RegisterSchool({ onAddSchool }: RegisterSchoolProps) {
             placeholder="Digite o nome da escola"
             {...register('SchoolName')}
           />
+          {errors.SchoolName && (
+            <span className="flex text-sm text-red-500">
+              {errors.SchoolName.message}
+            </span>
+          )}
         </div>
 
         <div className="text-lg">
@@ -166,13 +172,15 @@ export function RegisterSchool({ onAddSchool }: RegisterSchoolProps) {
         </div>
         <Separator />
         <div className="ml-auto flex gap-3">
-          <Button
-            type="button"
-            variant="ghost"
-            className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
-          >
-            Cancelar
-          </Button>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
+            >
+              Cancelar
+            </Button>
+          </DialogClose>
 
           <Button type="submit" disabled={isSubmitting}>
             Cadastrar

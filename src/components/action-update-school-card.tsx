@@ -1,7 +1,12 @@
 import { PictureInPicture } from 'lucide-react'
 
 import { Button } from './ui/button'
-import { DialogContent, DialogHeader, DialogTitle } from './ui/dialog'
+import {
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 
@@ -40,13 +45,15 @@ export default function ActionUpdateSchoolCard() {
         </div>
 
         <div className="ml-auto flex justify-end gap-3">
-          <Button
-            type="button"
-            variant="ghost"
-            className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
-          >
-            Cancelar
-          </Button>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              className="font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
+            >
+              Cancelar
+            </Button>
+          </DialogClose>
 
           <Button type="submit">Cadastrar</Button>
         </div>

@@ -6,6 +6,7 @@ import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -88,12 +89,15 @@ export function RecoverPassword() {
               favor, verifique a sua caixa de entrada e a pasta de spam, se
               necessário.
             </p>
-            <Button
-              className="w-full rounded-xl"
-              onClick={() => setIsSuccess(false)}
-            >
-              Entendido
-            </Button>
+            <DialogClose asChild>
+              <Button
+                type="button"
+                className="w-full rounded-xl"
+                onClick={() => setIsSuccess(false)}
+              >
+                Entendido
+              </Button>
+            </DialogClose>
           </div>
         )}
       </div>
