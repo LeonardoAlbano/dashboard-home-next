@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import { z } from 'zod'
 
 import { RegisterSchool } from '@/components/register-school'
 import { RegisterSchoolCard } from '@/components/school-cards/register-school-card'
@@ -8,17 +9,19 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
 
-interface School {
-  SchoolName: string
-  photo: string
-  city: string
-  state: string
-}
+const registerSchoolForm = z.object({
+  SchoolName: z.string(),
+  photo: z.string(),
+  city: z.string(),
+  state: z.string(),
+})
+
+type RegiterSchoolForm = z.infer<typeof registerSchoolForm>
 
 export default function SchoolDashboard() {
-  const [schools, setSchools] = useState<School[]>([])
+  const [schools, setSchools] = useState<RegiterSchoolForm[]>([])
 
-  const addSchool = (newSchool: School) => {
+  function addSchool(newSchool: RegiterSchoolForm) {
     setSchools((prevSchools) => [...prevSchools, newSchool])
   }
 

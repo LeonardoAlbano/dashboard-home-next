@@ -1,5 +1,3 @@
-'use client'
-
 /* eslint-disable jsx-a11y/alt-text */
 import { Image } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
@@ -27,7 +25,10 @@ import { Separator } from './ui/separator'
 const schoolNameErrorMenssage = 'Máximo de 255 caracteres'
 
 const registerSchoolForm = z.object({
-  SchoolName: z.string().min(1).max(255, schoolNameErrorMenssage),
+  SchoolName: z
+    .string()
+    .min(1, 'Nome da escola é obrigatório')
+    .max(255, schoolNameErrorMenssage),
   photo: z.string(),
   city: z.enum(['Salvador', 'São Paulo', 'Rio de Janeiro']),
   state: z.enum(['BA', 'SP', 'RJ']),
@@ -74,10 +75,12 @@ export function RegisterSchool({ onAddSchool }: RegisterSchoolProps) {
             id="SchoolName"
             type="text"
             placeholder="Digite o nome da escola"
-            {...register('SchoolName')}
+            {...register('SchoolName', {
+              required: 'Nome da escola é obrigatório',
+            })}
           />
           {errors.SchoolName && (
-            <span className="flex text-sm text-red-500">
+            <span className="ml-1 mt-2 flex text-sm text-red-500">
               {errors.SchoolName.message}
             </span>
           )}
