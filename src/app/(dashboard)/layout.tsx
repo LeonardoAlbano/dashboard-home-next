@@ -10,7 +10,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
     <div className="grid min-h-screen grid-cols-app antialiased">
       <Sidebar />
 
-      <main className="bg-sky-50 pt-20 lg:col-start-1 lg:ml-20 lg:pt-0">
+      <main className="bg-sky-100 pt-20 lg:col-start-1 lg:ml-20 lg:pt-0">
         <Header />
         {children}
       </main>

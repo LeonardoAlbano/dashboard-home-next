@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
-export default function CardTeste() {
+export default function MaterialDashboard() {
   const [series, setSeries] = useState<string[]>([])
   const [hasSeries, setHasSeries] = useState(false)
 

@@ -51,7 +51,7 @@ export default function MaterialSchool() {
   } = useForm<RegisterMaterialForm>()
 
   async function handleRegisterMaterial(data: RegisterMaterialForm) {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 200))
     const newItem = { ...data, id: uuidv4() }
     setItems((prevItems) => [...prevItems, newItem])
     setFirstItemAdded(true)
@@ -77,7 +77,6 @@ export default function MaterialSchool() {
           <Link href="/school/card">
             <ChevronLeft size={40} className="text-slate-800" />
           </Link>
-
           <p className="text-2xl font-semibold text-slate-800">
             Escola Professora Maria da Paz - <span>Fundamental</span>
           </p>
@@ -91,7 +90,7 @@ export default function MaterialSchool() {
           <Dialog>
             <DialogTrigger asChild>
               <Button className="h-9 w-[180px] rounded-xl">
-                + Adicionar items
+                + Adicionar itens
               </Button>
             </DialogTrigger>
 
@@ -118,7 +117,7 @@ export default function MaterialSchool() {
                       }) => (
                         <>
                           <label
-                            htmlFor="state"
+                            htmlFor="category"
                             className="ml-0.5 text-sm font-medium text-slate-800"
                           >
                             Categoria <span className="text-red-500">*</span>
@@ -134,10 +133,8 @@ export default function MaterialSchool() {
                             </SelectTrigger>
 
                             <SelectContent>
-                              <div className="">
-                                <SelectItem value="caderno">Caderno</SelectItem>
-                                <SelectItem value="caneta">Caneta</SelectItem>
-                              </div>
+                              <SelectItem value="caderno">Caderno</SelectItem>
+                              <SelectItem value="caneta">Caneta</SelectItem>
                             </SelectContent>
                           </Select>
                         </>
@@ -154,7 +151,7 @@ export default function MaterialSchool() {
                       }) => (
                         <>
                           <label
-                            htmlFor="state"
+                            htmlFor="subcategory"
                             className="ml-0.5 text-sm font-medium text-slate-800"
                           >
                             Subcategoria <span className="text-red-500">*</span>
@@ -170,12 +167,10 @@ export default function MaterialSchool() {
                             </SelectTrigger>
 
                             <SelectContent>
-                              <div className="">
-                                <SelectItem value="10 materias">
-                                  10 matérias
-                                </SelectItem>
-                                <SelectItem value="azul">Azul</SelectItem>
-                              </div>
+                              <SelectItem value="10 materias">
+                                10 matérias
+                              </SelectItem>
+                              <SelectItem value="azul">Azul</SelectItem>
                             </SelectContent>
                           </Select>
                         </>
@@ -234,7 +229,7 @@ export default function MaterialSchool() {
               <div className="flex gap-2">
                 <PictureInPicture />
                 <p className="text-slate-800">
-                  {`${item.category} ${item.subcategory} | Livros e cadernos - Universitários`}
+                  {`${item.category} ${item.subcategory}`}
                 </p>
               </div>
               <Dialog>
@@ -251,38 +246,37 @@ export default function MaterialSchool() {
                   </Button>
                 </DialogTrigger>
 
-                <DialogContent className="w-[360px] px-6">
-                  <DialogHeader className="space-y-5">
-                    <DialogTitle className="text-md font-semibold text-slate-800">
-                      Remover item
-                    </DialogTitle>
-
-                    <DialogDescription className="text-normal text-slate-800">
-                      Você realmente deseja remover este item? Essa ação não
-                      pode ser desfeita
-                    </DialogDescription>
-
-                    <div className="grid-row mt-4 grid gap-3">
-                      <Button
-                        type="button"
-                        onClick={confirmRemoveItem}
-                        disabled={isSubmitting}
-                        className="h-8 rounded-xl"
-                      >
-                        Sim, remover
-                      </Button>
-
-                      <Button
-                        type="button"
-                        onClick={() => setConfirmDeleteItem(null)}
-                        variant="ghost"
-                        className="h-8 rounded-xl font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
-                      >
-                        Não remover
-                      </Button>
-                    </div>
-                  </DialogHeader>
-                </DialogContent>
+                {confirmDeleteItem && confirmDeleteItem.id === item.id && (
+                  <DialogContent>
+                    <DialogHeader className="space-y-5">
+                      <DialogTitle className="text-md font-semibold text-slate-800">
+                        Remover item
+                      </DialogTitle>
+                      <DialogDescription className="text-normal text-slate-800">
+                        Você realmente deseja remover este item? Esta ação não
+                        pode ser desfeita.
+                      </DialogDescription>
+                      <div className="grid grid-cols-2 gap-3">
+                        <Button
+                          type="button"
+                          onClick={confirmRemoveItem}
+                          disabled={isSubmitting}
+                          className="col-span-2 h-8 rounded-xl"
+                        >
+                          Sim, remover
+                        </Button>
+                        <Button
+                          type="button"
+                          onClick={() => setConfirmDeleteItem(null)}
+                          variant="ghost"
+                          className="col-span-2 h-8 rounded-xl font-semibold text-orange-500 transition-all hover:bg-orange-200 hover:text-orange-500"
+                        >
+                          Não remover
+                        </Button>
+                      </div>
+                    </DialogHeader>
+                  </DialogContent>
+                )}
               </Dialog>
             </div>
           ))}
