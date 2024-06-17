@@ -1,3 +1,5 @@
+// pages.tsx da pasta card
+
 'use client'
 import React, { useState } from 'react'
 import { z } from 'zod'
@@ -16,13 +18,19 @@ const registerSchoolForm = z.object({
   state: z.string(),
 })
 
-type RegiterSchoolForm = z.infer<typeof registerSchoolForm>
+type RegisterSchoolForm = z.infer<typeof registerSchoolForm>
 
 export default function SchoolDashboard() {
-  const [schools, setSchools] = useState<RegiterSchoolForm[]>([])
+  const [schools, setSchools] = useState<RegisterSchoolForm[]>([])
 
-  function addSchool(newSchool: RegiterSchoolForm) {
+  function addSchool(newSchool: RegisterSchoolForm) {
     setSchools((prevSchools) => [...prevSchools, newSchool])
+  }
+
+  function deleteSchool(schoolToDelete: RegisterSchoolForm) {
+    setSchools((prevSchools) =>
+      prevSchools.filter((school) => school !== schoolToDelete),
+    )
   }
 
   return (
@@ -47,7 +55,11 @@ export default function SchoolDashboard() {
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {schools.map((school, i) => (
-                <RegisterSchoolCard key={i} school={school} />
+                <RegisterSchoolCard
+                  key={i}
+                  school={school}
+                  onDelete={deleteSchool}
+                />
               ))}
             </div>
           )}

@@ -1,3 +1,5 @@
+// register-school-card.tsx
+
 'use client'
 
 import { EllipsisVertical } from 'lucide-react'
@@ -18,9 +20,13 @@ interface School {
 
 interface RegisterSchoolCardProps {
   school: School
+  onDelete: (school: School) => void
 }
 
-export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
+export function RegisterSchoolCard({
+  school,
+  onDelete,
+}: RegisterSchoolCardProps) {
   return (
     <Card className="flex max-w-[740px] justify-between rounded-xl border-none bg-blue-100 shadow-sm md:max-w-[550px]">
       <Link href="school/card" className="w-full">
@@ -53,7 +59,7 @@ export function RegisterSchoolCard({ school }: RegisterSchoolCardProps) {
             </Button>
           </DropdownMenuTrigger>
 
-          <ActionSchoolCard />
+          <ActionSchoolCard onDelete={() => onDelete(school)} />
         </DropdownMenu>
       </div>
     </Card>

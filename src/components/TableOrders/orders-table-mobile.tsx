@@ -8,10 +8,12 @@ import {
 
 export default function OrdersTableMobile() {
   return (
-    <Card className="border-0">
+    <Card className="block border-0 lg:hidden">
       <CardContent className="flex flex-row items-center justify-between pt-5">
         <div className="space-y-3">
-          <CardTitle className="text-lg text-slate-800">Núm. Pedido</CardTitle>
+          <CardTitle className="text-lg text-slate-800">
+            Núm. <br /> Pedido
+          </CardTitle>
           <CardDescription className="font-medium text-blue-500">
             123456
           </CardDescription>

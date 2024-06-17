@@ -37,17 +37,20 @@ export default function HomeDashboard() {
         </div>
       </section>
 
-      <section className="mt-4 flex flex-col gap-4 lg:px-7">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800 lg:text-3xl">
+      <section className="mt-8 flex flex-col gap-4 lg:px-2">
+        <div className="mt-5 flex items-center justify-between">
+          <h1 className="hidden text-2xl font-bold tracking-tight text-slate-800 lg:block lg:text-3xl">
             Lista de pedidos
+          </h1>
+          <h1 className="block text-2xl font-bold tracking-tight text-slate-800 lg:hidden lg:text-3xl">
+            Últimos pedidos
           </h1>
         </div>
 
         <div>
-          <div className="hidden md:block">
+          <div className="mt-4">
             <OrderTableFilters />
-            <div className="border-b-4 border-slate-400 bg-white">
+            <div className="hidden border-b-4 border-slate-400 bg-white md:block">
               <OrdersTable />
             </div>
           </div>
