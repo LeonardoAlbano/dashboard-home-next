@@ -18,7 +18,7 @@ export function Pagination({
   const pages = Math.ceil(totalCount / perPage) || 1
 
   return (
-    <div className="flex items-center justify-between rounded-lg bg-white py-1">
+    <div className="flex items-center justify-between rounded-lg bg-white px-3 py-1">
       <div className="">
         <Button
           variant="outline"

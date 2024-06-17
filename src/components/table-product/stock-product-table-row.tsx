@@ -1,53 +1,52 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Check, ChevronLeft, Image, Search } from 'lucide-react'
+'use client'
 
-import { StockProductTableRow } from '@/components/table-product/stock-product-table-row'
-import { Pagination } from '@/components/TableOrders/pagination'
-import { Button } from '@/components/ui/button'
+import { Check, Image, PencilIcon, Trash2Icon } from 'lucide-react'
+
+import { Button } from '../ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from '../ui/dialog'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { Textarea } from '@/components/ui/textarea'
+} from '../ui/select'
+import { Separator } from '../ui/separator'
+import { TableCell, TableRow } from '../ui/table'
+import { Textarea } from '../ui/textarea'
 
-export default function StockDashboard() {
+export function StockProductTableRow() {
   return (
-    <div className="px-6 py-8">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1">
-          <ChevronLeft className="text-slate-800" size={32} />
-          <h1 className="text-2xl font-bold text-slate-800">
-            Cadastro de produtos
-          </h1>
-        </div>
-
+    <TableRow className="border-b border-slate-300">
+      <TableCell className="text-start text-sm font-medium text-slate-800 md:text-base">
+        IMG - Nome do produto
+      </TableCell>
+      <TableCell className="text-center text-sm font-medium text-slate-800 md:text-base">
+        Caderno
+      </TableCell>
+      <TableCell className="text-center text-sm font-medium text-slate-800 md:text-base">
+        10 matérias
+      </TableCell>
+      <TableCell className="space-x-5 text-center">
         <Dialog>
           <DialogTrigger asChild>
-            <Button>+ Novo produto</Button>
+            <button>
+              <PencilIcon size={20} />
+            </button>
           </DialogTrigger>
           <DialogContent className="max-w-[700px] space-y-6">
             <DialogHeader className="mt-5">
-              <DialogTitle>Cadastrar produto</DialogTitle>
+              <DialogTitle>Editar produto</DialogTitle>
             </DialogHeader>
             <div className="flex items-center justify-start gap-8">
               <div className="space-y-3">
@@ -181,9 +180,11 @@ export default function StockDashboard() {
                 </div>
 
                 <div className="flex justify-end gap-3">
-                  <Button variant="ghost" className="text-orange-500">
-                    Cancelar
-                  </Button>
+                  <DialogClose asChild>
+                    <Button variant="ghost" className="text-orange-500">
+                      Cancelar
+                    </Button>
+                  </DialogClose>
 
                   <Dialog>
                     <DialogTrigger asChild>
@@ -191,8 +192,10 @@ export default function StockDashboard() {
                     </DialogTrigger>
 
                     <DialogContent className="max-w-[700px] space-y-6">
-                      <DialogHeader>
-                        <DialogTitle>Cadastrar produtor</DialogTitle>
+                      <DialogHeader className="mt-5">
+                        <DialogTitle className="text-slate-800">
+                          Editar produto
+                        </DialogTitle>
                       </DialogHeader>
 
                       <div className="flex items-center justify-start gap-8">
@@ -272,20 +275,21 @@ export default function StockDashboard() {
                       </div>
 
                       <div className="flex justify-end gap-3">
-                        <Button
-                          variant="ghost"
-                          className="text-md font-medium text-orange-500"
-                        >
-                          Cancelar
-                        </Button>
+                        <DialogClose asChild>
+                          <Button variant="ghost" className="text-orange-500">
+                            Cancelar
+                          </Button>
+                        </DialogClose>
 
                         <Dialog>
                           <DialogTrigger asChild>
                             <Button>Revisar produto</Button>
                           </DialogTrigger>
                           <DialogContent className="max-w-[500px] space-y-6">
-                            <DialogHeader>
-                              <DialogTitle>Cadastrar produtor</DialogTitle>
+                            <DialogHeader className="mt-5">
+                              <DialogTitle className="text-slate-800">
+                                Editar produtor
+                              </DialogTitle>
                             </DialogHeader>
                             <div className="space-y-5">
                               <span>imagem</span>
@@ -332,14 +336,16 @@ export default function StockDashboard() {
                               </p>
                             </div>
 
-                            <div className="flex flex-col">
-                              <Button>Cadastrar produto</Button>
-                              <Button
-                                variant="ghost"
-                                className="text-orange-500"
-                              >
-                                Cancelar
-                              </Button>
+                            <div className="flex flex-col gap-4">
+                              <Button>Salvar produto</Button>
+                              <DialogClose asChild>
+                                <Button
+                                  variant="ghost"
+                                  className="text-orange-500"
+                                >
+                                  Cancelar
+                                </Button>
+                              </DialogClose>
                             </div>
                           </DialogContent>
                         </Dialog>
@@ -351,48 +357,15 @@ export default function StockDashboard() {
             </div>
           </DialogContent>
         </Dialog>
-      </div>
 
-      <div className="mt-8 px-2">
-        <h1 className="mb-4 text-lg font-bold text-slate-800">
-          Lista de produtos
-        </h1>
-        <div className="flex w-full items-center gap-2 rounded-2xl border border-zinc-300 bg-white px-4 py-2 shadow-sm">
-          <Input
-            className="h-5 w-5 flex-1 border-0 bg-transparent p-0 text-slate-900 placeholder-black"
-            placeholder="Pesquise aqui"
-          />
-          <Search className="h-5 w-5 text-blue-400" />
-        </div>
-
-        <Table className="mt-8 bg-white">
-          <TableHeader>
-            <TableRow className="bg-slate-100">
-              <TableHead className="text-center font-bold text-slate-800">
-                Nome do produto
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Categoria
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Subcategoria
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Ações
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="">
-            {Array.from({ length: 6 }).map((_, i) => {
-              return <StockProductTableRow key={i} />
-            })}
-          </TableBody>
-        </Table>
-
-        <div className="mt-5">
-          <Pagination pageIndex={0} totalCount={105} perPage={10} />
-        </div>
-      </div>
-    </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <button>
+              <Trash2Icon size={20} />
+            </button>
+          </DialogTrigger>
+        </Dialog>
+      </TableCell>
+    </TableRow>
   )
 }
