@@ -44,18 +44,20 @@ export function RecoverPassword() {
     <DialogContent className="h-screen w-full sm:h-auto sm:w-[420px]">
       <DialogHeader className="space-y-3">
         <div className="flex items-center">
-          <ChevronLeft className="mr-2 h-8 w-8 text-slate-700 sm:hidden" />
+          <DialogClose>
+            <ChevronLeft className="mr-2 h-8 w-8 text-slate-700 sm:hidden" />
+          </DialogClose>
           <DialogTitle className="text-2xl text-slate-700">
             Recuperar senha
           </DialogTitle>
         </div>
         {!isSuccess && (
-          <DialogDescription className="text-start text-sm text-black">
+          <DialogDescription className="text-start text-sm text-slate-800">
             Para recuperar sua senha, digite o e-mail cadastrado.
           </DialogDescription>
         )}
       </DialogHeader>
-      <div>
+      <div className="">
         {!isSuccess ? (
           <form
             onSubmit={handleSubmit(handleRecoverPassword)}

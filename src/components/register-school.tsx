@@ -49,10 +49,6 @@ export function RegisterSchool({ onAddSchool }: RegisterSchoolProps) {
   } = useForm<RegisterSchoolForm>()
 
   async function handleRegisterSchool(data: RegisterSchoolForm) {
-    console.log(data)
-    // eslint-disable-next-line no-debugger
-    debugger
-
     await new Promise((resolve) => setTimeout(resolve, 500))
     onAddSchool(data)
   }

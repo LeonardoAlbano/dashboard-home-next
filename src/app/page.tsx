@@ -73,7 +73,7 @@ export default function Auth() {
           <form
             id="SignIn"
             onSubmit={handleSubmit(handleSignIn)}
-            className="relative w-[450px] space-y-4 px-8 pb-9"
+            className="relative w-[400px] space-y-4 px-8 pb-9"
           >
             <div className="space-y-2">
               <Label htmlFor="email">

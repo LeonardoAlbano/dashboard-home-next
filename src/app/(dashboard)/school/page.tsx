@@ -1,5 +1,3 @@
-// pages.tsx da pasta card
-
 'use client'
 import React, { useState } from 'react'
 import { z } from 'zod'

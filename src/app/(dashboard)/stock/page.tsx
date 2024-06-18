@@ -1,5 +1,10 @@
+'use client'
+
 /* eslint-disable jsx-a11y/alt-text */
 import { Check, ChevronLeft, Image, Search } from 'lucide-react'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { StockProductTableRow } from '@/components/table-product/stock-product-table-row'
 import { Pagination } from '@/components/TableOrders/pagination'
@@ -30,7 +35,42 @@ import {
 } from '@/components/ui/table'
 import { Textarea } from '@/components/ui/textarea'
 
+const registerStockForm = z.object({
+  productname: z.string(),
+  description: z.string(),
+  unitprice: z.string(),
+  category: z.string(),
+  subcategory: z.string(),
+  barcode: z.string(),
+  measure: z.string(),
+  firstphoto: z.string(),
+  secondphoto: z.string(),
+  thirdphoto: z.string(),
+  fourthphoto: z.string(),
+})
+
+type RegisterStockForm = z.infer<typeof registerStockForm>
+
 export default function StockDashboard() {
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: { isSubmitting },
+  } = useForm<RegisterStockForm>()
+  const [formData, setFormData] = useState<RegisterStockForm | null>(null)
+
+  async function handleRegisterStock(data: RegisterStockForm) {
+    console.log(data)
+    await new Promise((resolve) => setTimeout(resolve, 500))
+  }
+
+  const handleNext = () => {
+    const data = watch()
+    setFormData(data)
+  }
+
   return (
     <div className="px-6 py-8">
       <div className="flex items-center justify-between">
@@ -74,7 +114,11 @@ export default function StockDashboard() {
             </div>
 
             <div>
-              <form action="" className="space-y-6">
+              <form
+                action=""
+                className="space-y-6"
+                onSubmit={handleSubmit(handleRegisterStock)}
+              >
                 <div className="space-y-2">
                   <Label htmlFor="productname" className="ml-1">
                     Nome do produto<span className="text-red-500">*</span>
@@ -83,6 +127,7 @@ export default function StockDashboard() {
                     placeholder="Digite o nome do produto"
                     type="text"
                     id="productname"
+                    {...register('productname')}
                   />
                 </div>
 
@@ -93,6 +138,7 @@ export default function StockDashboard() {
                   <Textarea
                     placeholder="Descrição do produto"
                     id="description"
+                    {...register('description')}
                   />
                 </div>
 
@@ -105,52 +151,83 @@ export default function StockDashboard() {
                     placeholder="Preço unitário"
                     type="text"
                     id="unitprice"
+                    {...register('unitprice')}
                   />
                 </div>
 
                 <div className="flex gap-10">
                   <div className="w-1/2 space-y-2">
-                    <label
-                      htmlFor="category"
-                      className="ml-0.5 text-sm font-medium text-slate-800"
-                    >
-                      Categoria<span className="text-red-500">*</span>
-                    </label>
-                    <Select>
-                      <SelectTrigger className="h-8">
-                        <SelectValue />
-                      </SelectTrigger>
+                    <Controller
+                      name="category"
+                      control={control}
+                      render={({
+                        field: { name, onChange, value, disabled },
+                      }) => (
+                        <>
+                          <label
+                            htmlFor="category"
+                            className="ml-0.5 text-sm font-medium text-slate-800"
+                          >
+                            Categoria<span className="text-red-500">*</span>
+                          </label>
+                          <Select
+                            name={name}
+                            onValueChange={onChange}
+                            value={value}
+                            disabled={disabled}
+                          >
+                            <SelectTrigger className="h-8">
+                              <SelectValue />
+                            </SelectTrigger>
 
-                      <SelectContent>
-                        <SelectItem value="caderno">Caderno</SelectItem>
-                        <SelectItem value="caneta">Caneta</SelectItem>
-                      </SelectContent>
-                    </Select>
+                            <SelectContent>
+                              <SelectItem value="caderno">Caderno</SelectItem>
+                              <SelectItem value="caneta">Caneta</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </>
+                      )}
+                    />
                   </div>
                   <div className="w-1/2 space-y-2">
-                    <label
-                      htmlFor="subcategory"
-                      className="ml-0.5 text-sm font-medium text-slate-800"
-                    >
-                      Subcategoria<span className="text-red-500">*</span>
-                    </label>
-                    <Select>
-                      <SelectTrigger className="h-8">
-                        <SelectValue />
-                      </SelectTrigger>
+                    <Controller
+                      name="subcategory"
+                      control={control}
+                      render={({
+                        field: { name, onChange, value, disabled },
+                      }) => (
+                        <>
+                          <label
+                            htmlFor="subcategory"
+                            className="ml-0.5 text-sm font-medium text-slate-800"
+                          >
+                            Categoria<span className="text-red-500">*</span>
+                          </label>
+                          <Select
+                            name={name}
+                            onValueChange={onChange}
+                            value={value}
+                            disabled={disabled}
+                          >
+                            <SelectTrigger className="h-8">
+                              <SelectValue />
+                            </SelectTrigger>
 
-                      <SelectContent>
-                        <SelectItem value="caderno">Caderno</SelectItem>
-                        <SelectItem value="caneta">Caneta</SelectItem>
-                      </SelectContent>
-                    </Select>
+                            <SelectContent>
+                              <SelectItem value="caderno">Caderno</SelectItem>
+                              <SelectItem value="caneta">Caneta</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </>
+                      )}
+                    />
                   </div>
                 </div>
 
                 <div className="flex gap-10">
                   <div className="w-1/2 space-y-2">
                     <label
-                      htmlFor="category"
+                      htmlFor="barcode"
                       className="ml-0.5 text-sm font-medium text-slate-800"
                     >
                       Código de barras<span className="text-red-500">*</span>
@@ -158,25 +235,41 @@ export default function StockDashboard() {
                     <Input
                       placeholder="Digite o código de barras"
                       className="h-8"
+                      {...register('barcode')}
                     />
                   </div>
                   <div className="w-1/2 space-y-2">
-                    <label
-                      htmlFor="subcategory"
-                      className="ml-0.5 text-sm font-medium text-slate-800"
-                    >
-                      Unidade de medida<span className="text-red-500">*</span>
-                    </label>
-                    <Select>
-                      <SelectTrigger className="h-8">
-                        <SelectValue />
-                      </SelectTrigger>
+                    <Controller
+                      name="measure"
+                      control={control}
+                      render={({
+                        field: { name, onChange, value, disabled },
+                      }) => (
+                        <>
+                          <label
+                            htmlFor="measure"
+                            className="ml-0.5 text-sm font-medium text-slate-800"
+                          >
+                            Unidade de medida<span className="text-red-500">*</span>
+                          </label>
+                          <Select
+                            name={name}
+                            onValueChange={onChange}
+                            value={value}
+                            disabled={disabled}
+                          >
+                            <SelectTrigger className="h-8">
+                              <SelectValue />
+                            </SelectTrigger>
 
-                      <SelectContent>
-                        <SelectItem value="caderno">Caderno</SelectItem>
-                        <SelectItem value="caneta">Caneta</SelectItem>
-                      </SelectContent>
-                    </Select>
+                            <SelectContent>
+                              <SelectItem value="caderno">litros</SelectItem>
+                              <SelectItem value="caneta">Milimetros</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </>
+                      )}
+                    />
                   </div>
                 </div>
 
@@ -223,50 +316,82 @@ export default function StockDashboard() {
 
                       <div className="grid grid-cols-2 gap-4">
                         <div className="text-lg">
-                          <Label htmlFor="photo" className="ml-0.5 space-y-1">
+                          <Label
+                            htmlFor="firstphoto"
+                            className="ml-0.5 space-y-1"
+                          >
                             <div className="flex h-60 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dotted border-orange-500 bg-orange-200">
                               <Image className="text-orange-600" size={22} />
                               <span className="text-orange-600">
                                 Clique para adicionar
                               </span>
                             </div>
-                            <Input type="file" className="sr-only" />
+                            <Input
+                              type="file"
+                              className="sr-only"
+                              id="firstphoto"
+                              {...register('firstphoto')}
+                            />
                           </Label>
                         </div>
 
                         <div className="text-lg">
-                          <Label htmlFor="photo" className="ml-0.5 space-y-1">
+                          <Label
+                            htmlFor="secondphoto"
+                            className="ml-0.5 space-y-1"
+                          >
                             <div className="flex h-60 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dotted border-orange-500 bg-orange-200">
                               <Image className="text-orange-600" size={22} />
                               <span className="text-orange-600">
                                 Clique para adicionar
                               </span>
                             </div>
-                            <Input type="file" className="sr-only" />
+                            <Input
+                              type="file"
+                              className="sr-only"
+                              id="secondphoto"
+                              {...register('secondphoto')}
+                            />
                           </Label>
                         </div>
 
                         <div className="text-lg">
-                          <Label htmlFor="photo" className="ml-0.5 space-y-1">
+                          <Label
+                            htmlFor="thirdphoto"
+                            className="ml-0.5 space-y-1"
+                          >
                             <div className="flex h-60 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dotted border-orange-500 bg-orange-200">
                               <Image className="text-orange-600" size={22} />
                               <span className="text-orange-600">
                                 Clique para adicionar
                               </span>
                             </div>
-                            <Input type="file" className="sr-only" />
+                            <Input
+                              type="file"
+                              className="sr-only"
+                              id="thirdphoto"
+                              {...register('thirdphoto')}
+                            />
                           </Label>
                         </div>
 
                         <div className="text-lg">
-                          <Label htmlFor="photo" className="ml-0.5 space-y-1">
+                          <Label
+                            htmlFor="fourthphoto"
+                            className="ml-0.5 space-y-1"
+                          >
                             <div className="flex h-60 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dotted border-orange-500 bg-orange-200">
                               <Image className="text-orange-600" size={22} />
                               <span className="text-orange-600">
                                 Clique para adicionar
                               </span>
                             </div>
-                            <Input type="file" className="sr-only" />
+                            <Input
+                              type="file"
+                              className="sr-only"
+                              id="fourthphoto"
+                              {...register('fourthphoto')}
+                            />
                           </Label>
                         </div>
                       </div>
@@ -281,59 +406,55 @@ export default function StockDashboard() {
 
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button>Revisar produto</Button>
+                            <Button onClick={handleNext}>
+                              Revisar produto
+                            </Button>
                           </DialogTrigger>
                           <DialogContent className="max-w-[500px] space-y-6">
                             <DialogHeader>
                               <DialogTitle>Cadastrar produtor</DialogTitle>
                             </DialogHeader>
                             <div className="space-y-5">
-                              <span>imagem</span>
+                              <span>{formData?.firstphoto}</span>
 
-                              <h1>
-                                Caneta pincel brush pen faber castell tons
-                                pastel C/6 cores
-                              </h1>
+                              <h1>{formData?.productname}</h1>
 
                               <p className="font-bold text-slate-800">
-                                R$ 48,60
+                                {formData?.description}
                               </p>
 
-                              <p>
-                                No entanto, não podemos esquecer que a contínua
-                                expansão de nossa atividade é uma das
-                                consequências das diversas correntes de
-                                pensamento.
-                              </p>
+                              <p>{formData?.unitprice}</p>
 
                               <p>
                                 <strong className="text-slate-800">
                                   Categoria:{' '}
                                 </strong>
-                                Canetas
+                                {formData?.category}
                               </p>
                               <p>
                                 <strong className="text-slate-800">
                                   Subcategoria:{' '}
                                 </strong>
-                                Canetas pincel
+                                {formData?.subcategory}
                               </p>
                               <p>
                                 <strong className="text-slate-800">
                                   Unidade de medida:{' '}
                                 </strong>
-                                Unidades
+                                {formData?.barcode}
                               </p>
                               <p>
                                 <strong className="text-slate-800">
                                   Código:{' '}
                                 </strong>
-                                1234567898671
+                                {formData?.measure}
                               </p>
                             </div>
 
                             <div className="flex flex-col">
-                              <Button>Cadastrar produto</Button>
+                              <Button type="submit" disabled={isSubmitting}>
+                                Cadastrar produto
+                              </Button>
                               <Button
                                 variant="ghost"
                                 className="text-orange-500"
