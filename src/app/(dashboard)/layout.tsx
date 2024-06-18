@@ -7,13 +7,12 @@ import Sidebar from '@/components/Sidebar'
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="grid min-h-screen grid-cols-app antialiased">
+    <div className="flex min-h-screen">
       <Sidebar />
-
-      <main className="bg-sky-100 pt-20 lg:col-start-1 lg:ml-20 lg:pl-4 lg:pt-0">
+      <div className="flex-1">
         <Header />
-        {children}
-      </main>
+        <main className="bg-sky-100 p-4">{children}</main>
+      </div>
     </div>
   )
 }

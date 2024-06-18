@@ -1,8 +1,6 @@
 import { ChevronLeft, Search } from 'lucide-react'
 
 import { PostAllTableRow } from '@/components/table-post/post-all-table-row'
-import { PostNotTableRow } from '@/components/table-post/post-not-table-row'
-import { PostTableRow } from '@/components/table-post/post-table-row'
 import { Pagination } from '@/components/TableOrders/pagination'
 import { Input } from '@/components/ui/input'
 import {
@@ -77,60 +75,6 @@ export default function PostDashboard() {
           <TableBody className="">
             {Array.from({ length: 6 }).map((_, i) => {
               return <PostAllTableRow key={i} />
-            })}
-          </TableBody>
-        </Table>
-
-        <Table className="mt-8 bg-white">
-          <TableHeader>
-            <TableRow className="bg-slate-100">
-              <TableHead className="text-center font-bold text-slate-800">
-                Nome do produto
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Quantidade
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Categoria
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Subcategoria
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Ações
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="">
-            {Array.from({ length: 6 }).map((_, i) => {
-              return <PostTableRow key={i} />
-            })}
-          </TableBody>
-        </Table>
-
-        <Table className="mt-8 bg-white">
-          <TableHeader>
-            <TableRow className="bg-slate-100">
-              <TableHead className="text-center font-bold text-slate-800">
-                Nome do produto
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Quantidade
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Categoria
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Subcategoria
-              </TableHead>
-              <TableHead className="text-center font-bold text-slate-800">
-                Ações
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="">
-            {Array.from({ length: 6 }).map((_, i) => {
-              return <PostNotTableRow key={i} />
             })}
           </TableBody>
         </Table>

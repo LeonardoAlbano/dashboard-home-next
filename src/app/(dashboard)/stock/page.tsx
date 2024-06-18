@@ -2,7 +2,6 @@
 
 /* eslint-disable jsx-a11y/alt-text */
 import { Check, ChevronLeft, Image, Search } from 'lucide-react'
-import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -56,19 +55,12 @@ export default function StockDashboard() {
     register,
     handleSubmit,
     control,
-    watch,
     formState: { isSubmitting },
   } = useForm<RegisterStockForm>()
-  const [formData, setFormData] = useState<RegisterStockForm | null>(null)
 
   async function handleRegisterStock(data: RegisterStockForm) {
     console.log(data)
     await new Promise((resolve) => setTimeout(resolve, 500))
-  }
-
-  const handleNext = () => {
-    const data = watch()
-    setFormData(data)
   }
 
   return (
@@ -80,7 +72,6 @@ export default function StockDashboard() {
             Cadastro de produtos
           </h1>
         </div>
-
         <Dialog>
           <DialogTrigger asChild>
             <Button>+ Novo produto</Button>
@@ -250,7 +241,7 @@ export default function StockDashboard() {
                             htmlFor="measure"
                             className="ml-0.5 text-sm font-medium text-slate-800"
                           >
-                            Unidade de medida<span className="text-red-500">*</span>
+                            Categoria<span className="text-red-500">*</span>
                           </label>
                           <Select
                             name={name}
@@ -263,8 +254,8 @@ export default function StockDashboard() {
                             </SelectTrigger>
 
                             <SelectContent>
-                              <SelectItem value="caderno">litros</SelectItem>
-                              <SelectItem value="caneta">Milimetros</SelectItem>
+                              <SelectItem value="caderno">Caderno</SelectItem>
+                              <SelectItem value="caneta">Caneta</SelectItem>
                             </SelectContent>
                           </Select>
                         </>
@@ -406,58 +397,64 @@ export default function StockDashboard() {
 
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button onClick={handleNext}>
-                              Revisar produto
-                            </Button>
+                            <Button>Revisar produto</Button>
                           </DialogTrigger>
                           <DialogContent className="max-w-[500px] space-y-6">
                             <DialogHeader>
                               <DialogTitle>Cadastrar produtor</DialogTitle>
                             </DialogHeader>
                             <div className="space-y-5">
-                              <span>{formData?.firstphoto}</span>
+                              <span>imagem</span>
 
-                              <h1>{formData?.productname}</h1>
+                              <h1>
+                                Caneta pincel brush pen faber castell tons
+                                pastel C/6 cores
+                              </h1>
 
                               <p className="font-bold text-slate-800">
-                                {formData?.description}
+                                R$ 48,60
                               </p>
 
-                              <p>{formData?.unitprice}</p>
+                              <p>
+                                No entanto, não podemos esquecer que a contínua
+                                expansão de nossa atividade é uma das
+                                consequências das diversas correntes de
+                                pensamento.
+                              </p>
 
                               <p>
                                 <strong className="text-slate-800">
                                   Categoria:{' '}
                                 </strong>
-                                {formData?.category}
+                                Canetas
                               </p>
                               <p>
                                 <strong className="text-slate-800">
                                   Subcategoria:{' '}
                                 </strong>
-                                {formData?.subcategory}
+                                Canetas pincel
                               </p>
                               <p>
                                 <strong className="text-slate-800">
                                   Unidade de medida:{' '}
                                 </strong>
-                                {formData?.barcode}
+                                Unidades
                               </p>
                               <p>
                                 <strong className="text-slate-800">
                                   Código:{' '}
                                 </strong>
-                                {formData?.measure}
+                                1234567898671
                               </p>
                             </div>
 
                             <div className="flex flex-col">
-                              <Button type="submit" disabled={isSubmitting}>
-                                Cadastrar produto
-                              </Button>
+                              <Button>Cadastrar produto</Button>
                               <Button
                                 variant="ghost"
                                 className="text-orange-500"
+                                type="submit"
+                                disabled={isSubmitting}
                               >
                                 Cancelar
                               </Button>
