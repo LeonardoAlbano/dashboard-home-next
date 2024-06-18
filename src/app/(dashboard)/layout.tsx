@@ -11,7 +11,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       <Sidebar />
       <div className="flex-1">
         <Header />
-        <main className="bg-sky-100 p-4">{children}</main>
+        <main className="bg-sky-100 px-4 pt-24">{children}</main>
       </div>
     </div>
   )
