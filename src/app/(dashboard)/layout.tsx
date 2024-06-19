@@ -11,7 +11,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       <Sidebar />
       <div className="flex h-screen flex-1 flex-col">
         <Header />
-        <main className="flex-1·overflow-auto·bg-fund px-4">{children}</main>
+        <main className="bg-fund flex-1 overflow-auto px-4">{children}</main>
       </div>
     </div>
   )

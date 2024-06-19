@@ -50,7 +50,9 @@ export default function Sidebar() {
   ]
 
   return (
-    <Collapsible className="fixed left-0 right-0 top-0 z-20 bg-blue-800 data-[state=open]:bottom-0 lg:relative lg:right-auto lg:bg-white lg:px-4 lg:data-[state=closed]:bottom-0">
+    <Collapsible
+      className={`fixed left-0 right-0 z-20 bg-blue-800 lg:relative lg:right-auto lg:bg-white lg:px-4 lg:data-[state=closed]:bottom-0 ${open ? 'bottom-0' : 'hidden lg:block'}`}
+    >
       <div
         className={` ${open ? 'w-68' : 'w-20'} bg-dark-purple relative h-screen p-5 pt-8 duration-300`}
       >

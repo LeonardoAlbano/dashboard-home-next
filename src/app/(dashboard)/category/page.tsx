@@ -243,7 +243,7 @@ export default function SchoolDashboard() {
 
       <div>
         <div className="space-y-5">
-          <Accordion type="single" collapsible className='space-y-5'>
+          <Accordion type="single" collapsible className="space-y-5">
             {categories.map((category, index) => (
               <AccordionItem
                 value={`item-${index}`}
