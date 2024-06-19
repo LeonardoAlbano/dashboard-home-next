@@ -7,7 +7,7 @@ export function OrdersTable() {
   return (
     <Table>
       <TableHeader>
-        <TableRow className="bg-slate-100">
+        <TableRow className="bg-tableHeader">
           <TableHead className="text-center font-bold text-slate-950">
             Núm. Pedido
           </TableHead>

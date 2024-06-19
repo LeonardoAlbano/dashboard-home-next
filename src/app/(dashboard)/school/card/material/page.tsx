@@ -44,7 +44,7 @@ export default function MaterialSchool() {
   }
 
   return (
-    <div className="bg-sky-50">
+    <div className="bg-fund">
       <main className="min-h-screen space-y-10 px-5 pt-10 lg:p-7">
         <section className="flex items-center gap-5 pb-8">
           <Link href="/school/card">

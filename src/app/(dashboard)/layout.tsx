@@ -9,9 +9,9 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1">
+      <div className="flex h-screen flex-1 flex-col">
         <Header />
-        <main className="bg-sky-100 px-4 pt-24">{children}</main>
+        <main className="flex-1·overflow-auto·bg-fund px-4">{children}</main>
       </div>
     </div>
   )

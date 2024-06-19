@@ -33,7 +33,7 @@ export default function SchoolDashboard() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <main className="flex-grow space-y-8 bg-sky-100 px-5 pt-10 lg:p-7">
+      <main className="flex-grow·space-y-8·bg-fund px-5 pt-10 lg:p-7">
         <section className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-slate-800">Escolas</h1>
           <Dialog>

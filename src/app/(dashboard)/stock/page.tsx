@@ -485,7 +485,7 @@ export default function StockDashboard() {
 
         <Table className="mt-8 bg-white">
           <TableHeader>
-            <TableRow className="bg-slate-100">
+            <TableRow className="bg-tableHeader">
               <TableHead className="text-center font-bold text-slate-800">
                 Nome do produto
               </TableHead>

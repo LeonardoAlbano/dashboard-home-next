@@ -50,9 +50,9 @@ export default function Sidebar() {
   ]
 
   return (
-    <Collapsible className="fixed left-0 right-0 top-0 z-20 bg-blue-800 data-[state=closed]:bottom-0 lg:relative lg:right-auto lg:bg-white lg:px-4 lg:py-8 lg:data-[state=closed]:bottom-0">
+    <Collapsible className="fixed left-0 right-0 top-0 z-20 bg-blue-800 data-[state=open]:bottom-0 lg:relative lg:right-auto lg:bg-white lg:px-4 lg:data-[state=closed]:bottom-0">
       <div
-        className={` ${open ? 'w-72' : 'w-20'} bg-dark-purple relative h-screen p-5 pt-8 duration-300`}
+        className={` ${open ? 'w-68' : 'w-20'} bg-dark-purple relative h-screen p-5 pt-8 duration-300`}
       >
         <div className="flex gap-x-4">
           <div
@@ -62,15 +62,12 @@ export default function Sidebar() {
             <LogoTrajetonSidebar />
           </div>
 
-          <CollapsibleTrigger className="lg:hidden">
+          <CollapsibleTrigger asChild className="lg:hidden">
             <Button variant="ghost">
               <Menu className="h-6 w-6" />
             </Button>
           </CollapsibleTrigger>
         </div>
-        <h1
-          className={`origin-left text-xl font-medium text-white duration-200 ${!open && 'scale-0'}`}
-        ></h1>
 
         <CollapsibleContent
           forceMount
@@ -90,7 +87,7 @@ export default function Sidebar() {
                   <Link href={item.path} className="flex items-center gap-x-4">
                     <item.icon className="h-5 w-5" />
                     <span
-                      className={`${!open && 'hidden'} origin-left duration-200`}
+                      className={`${!open && 'block lg:hidden'} origin-left whitespace-nowrap duration-200`}
                     >
                       {item.title}
                     </span>
@@ -116,7 +113,7 @@ export default function Sidebar() {
                       >
                         <Link
                           href={subItem.path}
-                          className="flex items-center gap-x-2"
+                          className="flex items-center lg:-ml-6"
                         >
                           <Dot className="text-orange-500" />
                           <span
@@ -131,13 +128,16 @@ export default function Sidebar() {
                 )}
               </div>
             ))}
-
-            <div className="ml-1 flex items-center gap-3">
+            <div
+              className="group ml-1 flex cursor-pointer items-center gap-3"
+              onClick={() => setOpen(!open)}
+            >
               <ArrowRight
-                className={`border-dark-purple w-7 cursor-pointer text-slate-400 ${!open && 'rotate-180'}`}
-                onClick={() => setOpen(!open)}
+                className={`border-dark-purple w-7 text-slate-400 group-hover:text-orange-500 ${!open && 'rotate-180'}`}
               />
-              <span className={`mb-0.5 text-slate-400 ${!open && 'hidden'} `}>
+              <span
+                className={`mb-0.5 text-slate-400 group-hover:text-orange-500 ${!open && 'hidden'} `}
+              >
                 recolher
               </span>
             </div>

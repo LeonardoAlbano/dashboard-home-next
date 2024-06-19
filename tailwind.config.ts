@@ -19,10 +19,12 @@ const config = {
     },
     extend: {
       gridTemplateColumns: {
-        app: 'minmax(2rem) 1fr',
+        app: 'minmax(18rem 20rem) 1fr',
         desktop: 'minmax(2rem, 5rem) 1fr',
       },
       colors: {
+        fund: 'rgba(250, 251, 253, 1)',
+        tableHeader: 'rgba(234, 239, 244, 1)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
