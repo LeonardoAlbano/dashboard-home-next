@@ -1,6 +1,17 @@
-/* eslint-disable jsx-a11y/alt-text */
-import { ChevronLeft, Image } from 'lucide-react'
+'use client'
 
+/* eslint-disable jsx-a11y/alt-text */
+import { ChevronLeft, Image, Pencil, Trash2 } from 'lucide-react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -27,9 +38,35 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
+const registerCategoryForm = z.object({
+  photo: z.string(),
+  title: z.string(),
+})
+
+type RegisterCategoryForm = z.infer<typeof registerCategoryForm>
+
+interface Category {
+  photo: string
+  title: string
+}
+
 export default function SchoolDashboard() {
+  const [categories, setCategories] = useState<Category[]>([])
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<RegisterCategoryForm>()
+
+  async function handleRegisterCategory(data: RegisterCategoryForm) {
+    console.log(data)
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    setCategories((prevCategories) => [...prevCategories, data])
+  }
+
   return (
-    <section className="pt-8">
+    <section className="space-y-6 pt-8">
       <div className="flex justify-between">
         <div className="flex items-center">
           <ChevronLeft className="text-slate-800" />
@@ -65,7 +102,11 @@ export default function SchoolDashboard() {
                       </DialogTitle>
                     </DialogHeader>
                     <div>
-                      <form action="" className="space-y-7">
+                      <form
+                        action=""
+                        className="space-y-7"
+                        onSubmit={handleSubmit(handleRegisterCategory)}
+                      >
                         <div className="text-lg">
                           <Label
                             htmlFor="photo"
@@ -79,7 +120,12 @@ export default function SchoolDashboard() {
                                 Clique para adicionar
                               </span>
                             </div>
-                            <Input type="file" className="sr-only" id="photo" />
+                            <Input
+                              type="file"
+                              className="sr-only"
+                              id="photo"
+                              {...register('photo')}
+                            />
                           </Label>
                         </div>
 
@@ -93,11 +139,16 @@ export default function SchoolDashboard() {
                           <Input
                             id="title"
                             placeholder="Digite o título aqui"
+                            {...register('title')}
                           />
                         </div>
 
                         <div>
-                          <Button className="text-md w-full rounded-xl">
+                          <Button
+                            className="text-md w-full rounded-xl"
+                            type="submit"
+                            disabled={isSubmitting}
+                          >
                             Cadastrar
                           </Button>
                         </div>
@@ -144,14 +195,14 @@ export default function SchoolDashboard() {
 
                         <div className="space-y-2">
                           <Label
-                            htmlFor="title"
+                            htmlFor="subtitle"
                             className="ml-0.5 text-slate-800"
                           >
                             Título subcategoria
                             <span className="text-red-500">*</span>
                           </Label>
                           <Input
-                            id="title"
+                            id="subtitle"
                             placeholder="Digite o título aqui"
                           />
                         </div>
@@ -191,8 +242,40 @@ export default function SchoolDashboard() {
       </div>
 
       <div>
-        <div>
-          <h1>IMG - nome da categoria</h1>
+        <div className="space-y-5">
+          <Accordion type="single" collapsible className='space-y-5'>
+            {categories.map((category, index) => (
+              <AccordionItem
+                value={`item-${index}`}
+                key={index}
+                className="space-y-3"
+              >
+                <AccordionTrigger className="h-20 rounded-xl border-none bg-slate-100 px-4">
+                  <div className="flex w-full items-center justify-between">
+                    <div>
+                      <h1>
+                        {category.photo} - {category.title}
+                      </h1>
+                    </div>
+
+                    <div className="mr-5 flex items-center space-x-5">
+                      <Pencil size={20} className="text-slate-800" />
+                      <Trash2 size={20} className="text-slate-800" />
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="rounded-xl border-none bg-slate-200">
+                  <div className="flex items-center justify-between">
+                    <h1>{category.title}</h1>
+                    <div className="mr-5 flex items-center space-x-5">
+                      <Pencil size={20} className="text-slate-800" />
+                      <Trash2 size={20} className="text-slate-800" />
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </div>
     </section>
